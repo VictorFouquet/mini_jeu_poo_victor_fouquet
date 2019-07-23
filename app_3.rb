@@ -1,51 +1,29 @@
 require 'bundler'
 Bundler.require
 
-require_relative 'lib/game'
 require_relative 'lib/player'
-		 
-puts "	 ------------------------------------------------"
-puts "	|    Bienvenue sur 'Ils veulent tous ma POO' !   |"
-puts "	| Le but du jeu est d'être le dernier survivant! |"
-puts " 	------------------------------------------------"
-puts "", "Quel est le nom de ton personnage? "
+require_relative 'lib/game'
+
+3.times do 
+	puts ""
+end
+puts "	 	 ------------------------------------------------"
+puts "		|    Bienvenue sur 'Ils veulent tous ma POO' !   |"
+puts "		| Le but du jeu est d'être le dernier survivant! |"
+puts " 		 ------------------------------------------------"
+puts "", "	Quel est le nom de ton personnage? "
 print "> " 
-user = HumanPlayer.new(gets.chomp)
 
-enemies = [player1 = Player.new("Diego le Gitan"), player2 = Player.new("Boris le Soviet")]
+my_game = Game.new(gets.chomp)
 
-while user.life_points > 0 && (player1.life_points > 0 || player2.life_points > 0)
-	puts "", "	++++++++++++++++++++++++++++++++++++++++++++++++++"
-	puts "", user.show_state, ""
-	puts "Quelle action veux-tu effectuer ?", "", "a - chercher une meilleure arme", "s - chercher à se soigner", ""
-	puts "Attaquer un joueur en vue :", "0 - #{player1.show_state}", "1 - #{player2.show_state}", ""
-	print "> " 
-	choice = gets.chomp
-	while !["a", "s", "0", "1"].include? choice
-		puts "Merci d'entrer un choix conforme aux propositions si tu veux que ça marche ;)"
-		print "> "
-		choice = gets.chomp
-	end
-	if choice == "a"
-		user.search_weapon
-	elsif choice == "s"
-		user.search_health_pack
-	elsif choice == "0"
-		user.attacks(player1)
-	else
-		user.attacks(player2)
-	end
-	enemies.each do |enemy|
-		if enemy.life_points > 0
-			enemy.attacks(user)
-		end
-	end
+while my_game.is_still_ongoing?
+	sleep(2)
+	my_game.menu
+	my_game.menu_choice
+	my_game.enemy_attacks
 end
 
-puts "", "	++++++++++++++++++++++++++++++++++++++++++++++++++"
-puts "", "La partie est finie."
-if user.life_points > 0
-	puts "B R A V O !  T U  A S  G A G N E !! "
-else
-	puts "Loser ! Tu as perdu !"
-end
+my_game.end_game
+
+#binding.pry
+

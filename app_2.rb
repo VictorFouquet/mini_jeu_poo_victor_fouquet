@@ -12,7 +12,7 @@ puts "", "Quel est le nom de ton personnage? "
 print "> " 
 user = HumanPlayer.new(gets.chomp)
 
-enemies = [player1 = Player.new("Diego le Gitan"), player2 = Player.new("Boris le Soviet")]
+enemies = [player1 = Player.new("Tony le Forain"), player2 = Player.new("Boris le Rouge")]
 
 while user.life_points > 0 && (player1.life_points > 0 || player2.life_points > 0)
 	puts "", "	++++++++++++++++++++++++++++++++++++++++++++++++++"
