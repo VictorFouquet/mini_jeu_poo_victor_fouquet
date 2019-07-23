@@ -15,13 +15,13 @@ class Player
 		@life_points -= damage
 		if @life_points <= 0 
 			@life_points = 0 
-			puts "	Le joueur #{@name} a été tué !"	
+			puts "	#{@name} a été tué !"	
 		end
 	end
 
 	def attacks(player)
 		sleep(2)
-		puts "", "	Le joueur #{@name} attaque le joueur #{player.name}" 
+		puts "", "	#{@name} attaque #{player.name}" 
 		damage = compute_damage
 		puts "	Il lui inflige #{damage} points de dommages."
 		player.gets_damage(damage)	
@@ -63,7 +63,7 @@ class HumanPlayer < Player
 	def search_health_pack
 		dice = rand(1..6)
 		if dice == 1
-			puts "	Reste en chien..."
+			puts "	En chien..."
 		elsif (2..5).include? dice
 			@life_points += 50
 			if @life_points > 100
@@ -73,7 +73,7 @@ class HumanPlayer < Player
 		else
 			@life_points += 80
 			if @life_points > 100
-				life_points = 100
+				@life_points = 100
 			end
 			puts "	Tu es en bombe, tu as trouvé un pack de +80PV !!"
 		end
